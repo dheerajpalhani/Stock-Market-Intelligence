@@ -7,6 +7,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 // Futuristic Neon Colors for the Pie Chart
 const COLORS = ['#0ea5e9', '#7000ff', '#39ff14', '#ff6700', '#00f2fe'];
 
+// Update this to your deployed backend URL (e.g., https://your-backend.onrender.com)
+const API_URL = 'https://stock-market-intelligence-api.onrender.com';
+
 function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,7 +20,7 @@ function App() {
   useEffect(() => {
     const fetchChartData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/crypto-data');
+        const response = await axios.get(`${API_URL}/api/crypto-data`);
         setChartData(response.data.timeline);
         setPieData(response.data.distribution);
       } catch (err) {
@@ -33,8 +36,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      // Assuming backend runs on localhost:8000
-      const response = await axios.get('http://localhost:8000/api/download-report', {
+      const response = await axios.get(`${API_URL}/api/download-report`, {
         responseType: 'blob',
       });
 
@@ -77,9 +79,9 @@ function App() {
             className="w-24 h-24 mx-auto bg-gradient-to-tr from-sky-blue via-hard-purple to-hard-green rounded-2xl flex items-center justify-center p-1 mb-6 md:mb-8 shadow-[0_0_40px_rgba(14,165,233,0.3)] cursor-pointer hover:scale-105 transition-transform overflow-hidden"
           >
             <div className="w-full h-full bg-space/90 rounded-xl flex items-center justify-center overflow-hidden">
-              <img 
-                src="/stock-market-logo.avif" 
-                alt="Stock Market Intelligence Logo" 
+              <img
+                src="/stock-market-logo.avif"
+                alt="Stock Market Intelligence Logo"
                 className="w-full h-full object-cover"
               />
             </div>

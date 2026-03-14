@@ -10,7 +10,11 @@ app = FastAPI(title="Stock Market Intelligence Backend")
 # Enable CORS for the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5173", 
+        "http://127.0.0.1:5173",
+        "https://stock-market-intelligence-frontend.vercel.app", # Add your deployed Vercel URL here
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
