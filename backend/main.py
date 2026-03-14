@@ -10,10 +10,11 @@ app = FastAPI(title="Stock Market Intelligence Backend")
 # Enable CORS for the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # Allowing all origins for local development simplicity
-    allow_credentials=False,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Disposition"]
 )
 
 @app.get("/")
@@ -26,17 +27,10 @@ def download_report():
     pdf_path = generate_report()
     
     # Return the file as a standard attachment with manual CORS headers as a fallback
-    headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "*",
-        "Access-Control-Expose-Headers": "Content-Disposition"
-    }
     return FileResponse(
         path=os.path.abspath(pdf_path), 
         filename="Stock_Market_Intelligence_Report.pdf", 
-        media_type="application/pdf",
-        headers=headers
+        media_type="application/pdf"
     )
 
 @app.get("/api/crypto-data")

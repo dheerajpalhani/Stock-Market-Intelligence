@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-[#121212] text-white min-h-screen font-sans antialiased overflow-x-hidden;
-  }
+html, body {
+  @apply bg-[#121212] text-white min-h-screen font-sans antialiased m-0 p-0;
+  overflow-x: hidden;
 }
 
 .glass-panel {
