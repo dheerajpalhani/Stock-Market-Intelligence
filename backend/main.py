@@ -2,23 +2,18 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from services import generate_report
+from services import fetch_crypto_data, fetch_top_coins_data, generate_report
 import os
 
 app = FastAPI(title="Stock Market Intelligence Backend")
 
-# Enable CORS for the frontend
+# Enable CORS for the frontend - Max Permissive for debugging
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173", 
-        "http://127.0.0.1:5173",
-        "https://stock-market-intelligence-five.vercel.app",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["Content-Disposition"]
 )
 
 @app.get("/")
@@ -41,8 +36,6 @@ def download_report():
 def crypto_data():
     """Returns the raw 7-day cryptocurrency data and top 5 coins for frontend interactive charts."""
     try:
-        from services import fetch_crypto_data, fetch_top_coins_data
-        
         # 1. Fetch Timeline Data
         df_timeline = fetch_crypto_data()
         df_timeline['date'] = df_timeline['date'].astype(str)
