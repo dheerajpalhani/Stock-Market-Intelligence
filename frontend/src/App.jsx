@@ -54,7 +54,7 @@ function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#121212] flex items-start md:items-center justify-center overflow-x-hidden py-10">
+    <div className="relative w-full bg-[#121212] flex flex-col items-center justify-start py-10">
       {/* Dynamic Background Blobs */}
       <div className="absolute top-0 -left-10 w-72 h-72 md:w-96 md:h-96 bg-sky-blue rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-0 -right-10 w-72 h-72 md:w-96 md:h-96 bg-hard-purple rounded-full mix-blend-soft-light filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
