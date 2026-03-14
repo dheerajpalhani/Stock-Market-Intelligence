@@ -21,6 +21,7 @@ function App() {
     const fetchChartData = async () => {
       try {
         const response = await axios.get(`${API_URL}/api/crypto-data`);
+        console.log("Backend Response:", response.data);
         setChartData(response.data.timeline);
         setPieData(response.data.distribution);
       } catch (err) {

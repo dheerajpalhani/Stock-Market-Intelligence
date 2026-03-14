@@ -40,21 +40,25 @@ def download_report():
 @app.get("/api/crypto-data")
 def crypto_data():
     """Returns the raw 7-day cryptocurrency data and top 5 coins for frontend interactive charts."""
-    from services import fetch_crypto_data, fetch_top_coins_data
-    
-    # 1. Fetch Timeline Data
-    df_timeline = fetch_crypto_data()
-    df_timeline['date'] = df_timeline['date'].astype(str)
-    timeline_records = df_timeline.to_dict(orient="records")
-    
-    # 2. Fetch Top Coins Data
-    df_top = fetch_top_coins_data()
-    top_records = df_top.to_dict(orient="records")
-    
-    return {
-        "timeline": timeline_records,
-        "distribution": top_records
-    }
+    try:
+        from services import fetch_crypto_data, fetch_top_coins_data
+        
+        # 1. Fetch Timeline Data
+        df_timeline = fetch_crypto_data()
+        df_timeline['date'] = df_timeline['date'].astype(str)
+        timeline_records = df_timeline.to_dict(orient="records")
+        
+        # 2. Fetch Top Coins Data
+        df_top = fetch_top_coins_data()
+        top_records = df_top.to_dict(orient="records")
+        
+        return {
+            "timeline": timeline_records,
+            "distribution": top_records
+        }
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc()}
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
