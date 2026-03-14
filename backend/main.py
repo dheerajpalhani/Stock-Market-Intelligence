@@ -13,7 +13,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173", 
         "http://127.0.0.1:5173",
-        "https://stock-market-intelligence-frontend.vercel.app", # Add your deployed Vercel URL here
+        "https://stock-market-intelligence.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
